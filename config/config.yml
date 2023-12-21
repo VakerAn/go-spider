@@ -1,0 +1,32 @@
+server:
+  run_mode: 'debug'
+  http_port: 8080
+  read_timeout: 60
+  write_timeout: 60
+  server_timeout: 10
+
+redis:
+  host: '127.0.0.1'
+  port: 6379
+  scheme: 'tcp'
+  alias: 'RedisLock'
+  user:
+  password:
+  ttl: 3000
+
+
+mysql:
+  host: '127.0.0.1'
+  port: 3306
+  scheme: 'dvapay'
+  user:  "root"
+  password: "root"
+
+logger:
+  default_name: 'go-spider'
+  path: './logs'
+
+base_url:
+  douban: ""
+  tiankong: ""
+  tencent: ""
