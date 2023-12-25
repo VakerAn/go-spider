@@ -1,0 +1,51 @@
+version: '3'
+services:
+  application:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        - DEBUG_HOST=${DEBUG_HOST}
+    restart: always
+    working_dir: /app
+    container_name: ${APPLICATION_NAME}
+    command:  ./go_movies_linux_amd64
+    ports:
+      - '${APPLICATION_PORT}:8899'
+    networks:
+      - store
+    environment:
+      - COMPOSER_ALLOW_SUPERUSER=1
+    volumes:
+      - .:/app
+    external_links:
+      - ${DATABASE_CONTAINER_NAME}
+      - ${REDIS_CONTAINER_NAME}
+
+  mysql:
+    image: registry.srv.local/commerce/percona:8.0.15
+    container_name: ${DATABASE_CONTAINER_NAME}
+    ports:
+      - 3306:3306
+    restart: on-failure
+    networks:
+      - store
+    volumes:
+      - ./scripts:/var/scripts
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+
+  redis:
+    image: redis:6.0
+    container_name: ${REDIS_CONTAINER_NAME}
+    ports:
+      - 6379:6379
+    restart: on-failure
+    networks:
+      - store
+networks:
+  store:
+    external: true
+    name: ${NETWORK}

@@ -9,13 +9,21 @@ import (
 )
 
 type Config struct {
+	App     *App     `yaml:"app" comment:"the app settings"`
 	Server  *Server  `yaml:"server" comment:"The server settings"`
 	RedisDB *Redis   `yaml:"redis" comment:"The redis settings"`
 	MysqlDB *Mysql   `yaml:"mysql" comment:"The  db settings"`
 	Logger  *Logger  `yaml:"logger" comment:"The log settings"`
 	BaseUrl *BaseURL `yaml:"base_url" comment:"its api domain name"`
 }
-
+type App struct {
+	SpiderPath     string `yaml:"spider_path"`
+	SpiderPathName string `yaml:"spider_path_name"`
+	DebugPath      string `yaml:"debug_path"`
+	DebugPathName  string `yaml:"debug_path_name"`
+	SpiderMod      string `yaml:"spider_mod"`
+	DebugMod       string `yaml:"debug_mod"`
+}
 type Server struct {
 	RunMode       string        `yaml:"run_mode"`
 	HTTPPort      int           `yaml:"http_port"`

@@ -1,3 +1,10 @@
+app:
+  spider_path: "/movies-spider"
+  spider_path_name: "MoviesSpider"
+  debug_path: "/debug"
+  debug_path_name: "Debug"
+  spider_mod: "async"
+  debug_mod: "true"
 server:
   run_mode: 'debug'
   http_port: 8080
@@ -22,11 +29,14 @@ mysql:
   user:  "root"
   password: "root"
 
+cron:
+  time_spider: "0 0 1 * * ?"
+
+base_url:
+  douban: "https://movie.douban.com/top250"
+  tiankong: "https://api.tiankongapi.com/api.php/provide/vod"
+  tencent: ""
+
 logger:
   default_name: 'go-spider'
   path: './logs'
-
-base_url:
-  douban: ""
-  tiankong: ""
-  tencent: ""
